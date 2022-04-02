@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
@@ -16,7 +16,7 @@ def register_request(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registartion successful")
-            return redirect("home")
+            return redirect("login")
         messages.error(request, "Unsuccessful registration. Invalid information")
     form = NewUserForm()
     return render (request=request, template_name="ig/register.html", context={"register_form":form})
@@ -31,10 +31,15 @@ def login_request(request):
 			if user is not None:
 				login(request, user)
 				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("main:homepage")
+				return redirect("homepage")
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
 			messages.error(request,"Invalid username or password.")
 	form = AuthenticationForm()
 	return render(request=request, template_name="ig/login.html", context={"login_form": form})
+
+def logout_request(request):
+	logout(request)
+	messages.info(request, "You have successfully logged out.") 
+	return redirect("homepage")

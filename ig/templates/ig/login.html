@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container-fluid">
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="">
+    <div class="row p-5">
+        <div class="col-md-3 m-5">
+            <div class="">
+                {% load static %}
+                <img src="https://o.remove.bg/downloads/c9d4a39b-47d1-4032-b7b6-5621db84d5f2/ig-removebg-preview.png" alt="" class="screen-image">
+            </div>
+        </div>
         {% load crispy_forms_tags %}
-        
+        {% if form.errors %}
+        <p>Some credentials have been entered wrongly</p>
+        {% endif %}
         <!--Login-->
-        <div class="container py-5">
+        <div class="col-md-3 m-5">
             <h1>Login</h1>
             <form method="POST">
                 {% csrf_token %}
@@ -27,6 +24,5 @@
             <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
