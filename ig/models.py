@@ -29,3 +29,18 @@ class Post(models.Model):
     title = models.CharField(max_length=30, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='', null=True ,related_name='author')
     caption = models.TextField(max_length=300)
+
+    @classmethod
+    def all_posts(cls) :
+        posts = cls.objects.all()
+        return posts
+
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    @classmethod
+    def update_post(cls, id, value):
+        cls.objects.filter(id=id).update(image=value)
