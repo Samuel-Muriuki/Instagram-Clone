@@ -3,7 +3,7 @@ import email
 from django import forms
 from django.contrib.auth.forms import UserCreationForm # Pre-built register form that connects to the pre-built model User
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Post
 
 # Creating the forms here
 
@@ -32,3 +32,8 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username','email']
+
+class  NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['user','profile',]
