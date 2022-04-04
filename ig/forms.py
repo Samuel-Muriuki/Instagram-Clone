@@ -37,3 +37,13 @@ class  NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['user','profile',]
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comment
+        exclude=['username','post']
+
+class LikeForm(forms.ModelForm):
+    class Meta:
+        model=Like
+        exclude=['username','post','control']
