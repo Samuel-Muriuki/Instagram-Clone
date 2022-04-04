@@ -4,10 +4,33 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from .models import Post, Profile
 
 # Create your views here.
+
+@login_required(login_url='login/')
 def homepage(request):
-    return render(request, "home.html")
+    posts = Post.all_posts()
+    json_posts = []
+    for post in posts:
+
+        # import pdb; pdb.set_trace()
+        pic = Profile.objects.filter(user=post.user.id).first()
+        if pic:
+            pic = pic.profile_pic.url
+        else:
+            pic =''
+        obj = dict(
+            image=post.image.url,
+            author=post.user.username,
+            avatar=pic,
+            name=post.title,
+            caption=post.caption
+
+        )
+        json_posts.append(obj)
+    return render(request, 'home.html', {"posts": json_posts})
 
 def register_request(request):
     if request.method == 'POST':
