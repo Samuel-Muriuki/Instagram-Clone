@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5" style="padding-top: 80px;">
+        <div class="col-sm-6 m-auto card">
+            <br>
+            <div>
+                {% load crispy_forms_tags %}
+                <form method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom pt-4 mb-4">Profile info</legend>
+                        {{ user_form|crispy }}
+                        {{ profile_form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
