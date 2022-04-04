@@ -22,3 +22,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Post(models.Model):
+    image = models.ImageField(upload_to='post/', blank=True ,default = 'default.jpg')
+    title = models.CharField(max_length=30, default='')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='', null=True ,related_name='author')
+    caption = models.TextField(max_length=300)
