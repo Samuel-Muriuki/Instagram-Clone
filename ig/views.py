@@ -94,3 +94,20 @@ def profile(request):
         }
 
     return render(request, 'ig/profile.html', context)
+
+def post(request):
+    current_user = request.user
+   
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+           
+            image.save()
+            
+        return redirect('homepage')
+
+    else:
+        form = NewPostForm()
+    return render(request, 'ig/post.html', {"form": form})
