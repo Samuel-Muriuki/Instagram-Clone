@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    username = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     profile_info = models.TextField()
     picture = models.ImageField(upload_to='post/', blank=True,default='')
     name = models.CharField(max_length=50)
@@ -28,6 +28,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post/', blank=True ,default = 'default.jpg')
     title = models.CharField(max_length=30, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='', null=True ,related_name='author')
+    likes = models.IntegerField(default=0)
     caption = models.TextField(max_length=300)
 
     @classmethod

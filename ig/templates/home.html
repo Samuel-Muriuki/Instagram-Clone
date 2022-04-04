@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {%block content%}
 {{ block.super}}
 
@@ -7,33 +8,58 @@
     {%for post in posts %}
     <div class="card" style="width: 70%;">
         <div class="card-body d-flex">
-            <img src="{{post.avatar}}"
+            <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
                 class="img-thumbnail rounded-circle" alt="Avatar" width="54" height="56">
-            <h5 class="card-title mx-3 my-3">Card title</h5>
+            <h5 class="card-title mx-3 my-3"><span class="font-weight-bold">{{post.author}}</span></h5>
         </div>
-        <img class="card-img-top"
-            src="{{post.image}}"
-            alt="Card image cap">
+        <img class="card-img-top" src="{{post.image}}" alt="Card image cap">
         <div class="card-body">
             <div class="d-flex" style="font-size: 25px;">
-                <i class="fa fa-heart-o m-2 " aria-hidden="true"></i>
-                <i class="fa fa-comment-o m-2" aria-hidden="true"></i>
-                <i class="fa fa-paper-plane-o m-2" aria-hidden="true"></i>
+
+
+
+                <form action="{%url 'homepage'%}" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-heart-o m-2 " aria-hidden="true"></i></button>
+                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-comment-o m-2" aria-hidden="true"></i></button>
+                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-paper-plane-o m-2" aria-hidden="true"></i></button>
+                    
+                </form>
+
+                
+                
+                
                 <i class="fa fa-bookmark-o" style="margin-left: 70%;" aria-hidden="true"></i>
             </div>
-            <h3>{{post.name}}</h3>
+            <h6 class="font-weight-bold">{{post.likes}} likes</h6>
             <p>
-                <span class="font-weight-bold">{{post.author}}</span> 
+                <span class="font-weight-bold">{{post.author}}</span>
                 <span>{{post.caption}}</span>
             </p>
-            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p> -->
+           
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="font-size: 25px;">
-                <i class="fa fa-smile-o" aria-hidden="true"></i>
-            </li>
-        </ul>
+        <div class="d-flex">
+            <div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="font-size: 25px;">
+                        <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-2">
+                {%for comment in comments%}
+
+
+
+                <form action="{%url 'homepage'%}" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <input type="hidden" name="idpost" style="position:relative;left:10px" value='{{post.id}}'>
+                    {% bootstrap_form form %}
+                    <input type="submit" class="btn btn-success btn-md d-none" value="Add Comment">
+                </form>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>
