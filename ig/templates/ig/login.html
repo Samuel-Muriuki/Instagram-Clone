@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% block content %}
 <div class="">
-    <div class="row p-5">
+    <div class="row justify-content-center">
         <div class="col-md-3 m-5">
             <div class="">
                 {% load static %}
@@ -14,14 +14,20 @@
         <p>Some credentials have been entered wrongly</p>
         {% endif %}
         <!--Login-->
-        <div class="col-md-3 m-5">
-            <h1>Login</h1>
-            <form method="POST">
-                {% csrf_token %}
-                {{ login_form|crispy }}
-                <button class="btn btn-primary" type="submit">Login</button>
-            </form>
-            <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+        <div class="card m-5">
+            <div class="m-5">
+                <div class="card-title">
+                    <h1 class="text-center" style="font-family: 'Lobster Two', cursive;">
+                        Instagram
+                    </h1>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ login_form|crispy }}
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </form>
+                <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+            </div>
         </div>
     </div>
 </div>
