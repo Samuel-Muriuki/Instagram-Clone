@@ -3,7 +3,7 @@ import email
 from django import forms
 from django.contrib.auth.forms import UserCreationForm # Pre-built register form that connects to the pre-built model User
 from django.contrib.auth.models import User
-from .models import Profile, Post
+from .models import Profile, Post, Comment, Like
 
 # Creating the forms here
 

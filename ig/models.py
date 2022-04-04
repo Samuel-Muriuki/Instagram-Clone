@@ -44,3 +44,36 @@ class Post(models.Model):
     @classmethod
     def update_post(cls, id, value):
         cls.objects.filter(id=id).update(image=value)
+
+    
+class Comment(models.Model):
+    comment_content = models.CharField(max_length=300)
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+
+    def save_comment(self):
+        self.save()
+
+
+class Like(models.Model):
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    control = models.CharField(max_length=50,unique=True, null=True)
+
+    def __str__(self):
+        return self.control
+
+    def save_like(self):
+        self.save()
+
+
+class Follow(models.Model):
+    username = models.ForeignKey(User, related_name='follower', on_delete=models.CASCADE)
+    followed = models.ForeignKey(User, related_name='followed', on_delete=models.CASCADE)
+    follow_id = models.CharField(max_length=50,unique=True, null=True)
+
+    def __str__(self):
+        return self.follow_id
+
+    def save_like(self):
+        self.save()
