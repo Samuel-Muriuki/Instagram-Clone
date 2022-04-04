@@ -1,3 +1,4 @@
 venv/
 instagram/settings.py
-__pycache__/
+ig/__pycache__/
+instagram/__pycache__/

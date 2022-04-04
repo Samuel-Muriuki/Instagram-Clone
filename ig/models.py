@@ -9,4 +9,16 @@ class Profile(models.Model):
     picture = models.ImageField(upload_to='post/', blank=True,default='')
     name = models.CharField(max_length=50)
 
+    def save_profile(self):
+        self.save
+
+    def delete_user(self):
+        self.delete()
+
     
+    @classmethod
+    def edit_profile(cls, id, value):
+        cls.objects.filter(id=id).update(profile_name=value)
+
+    def __str__(self):
+        return self.user.username
