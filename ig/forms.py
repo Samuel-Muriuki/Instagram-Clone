@@ -3,6 +3,7 @@ import email
 from django import forms
 from django.contrib.auth.forms import UserCreationForm # Pre-built register form that connects to the pre-built model User
 from django.contrib.auth.models import User
+from .models import Profile
 
 # Creating the forms here
 
@@ -19,3 +20,15 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields =['picture', 'profile_info']
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username','email']
