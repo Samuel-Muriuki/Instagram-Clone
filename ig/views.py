@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from .models import Post, Profile
-from .forms import ProfileUpdateForm, UserUpdateForm, NewPostForm
+from .models import Post, Profile, Comment, Like
+from .forms import ProfileUpdateForm, UserUpdateForm, NewPostForm, CommentForm
 
 # Create your views here.
 
@@ -14,14 +14,23 @@ from .forms import ProfileUpdateForm, UserUpdateForm, NewPostForm
 def homepage(request):
     posts = Post.all_posts()
     json_posts = []
-    for post in posts:
+    profiles = Profile.objects.all()
+    current_user = request.user
 
-        # import pdb; pdb.set_trace()
-        pic = Profile.objects.filter(user=post.user.id).first()
+    comments = Comment.objects.all()
+    likes = Like.objects.all()
+    for post in posts:                                                            
+        num_likes = 0
+        for like in likes:
+            if post.id == like.post.id:
+                num_likes +=1
+        post.likes = num_likes
+        post.save()
+        pic = Profile.objects.filter(username=post.user.id).first()
         if pic:
-            pic = pic.profile_pic.url
+            pic = pic.picture.url
         else:
-            pic =''
+            pic = ''
         obj = dict(
             image=post.image.url,
             author=post.user.username,
@@ -31,7 +40,25 @@ def homepage(request):
 
         )
         json_posts.append(obj)
-    return render(request, 'home.html', {"posts": json_posts})
+        
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post_id = int(request.POST.get("idpost"))
+            post = Post.objects.get(id = post_id)
+            comment = form.save(commit=False)
+            comment.username = request.user
+            comment.post = post
+            comment.save()
+        return redirect('homepage')
+
+    else:
+        form = CommentForm()
+
+    
+    likes = Like.objects.all()
+    
+    return render(request, 'home.html', {"posts": json_posts, "likes":likes, "comments":comments, "profiles":profiles,"current_user":current_user,})
 
 def register_request(request):
     if request.method == 'POST':
