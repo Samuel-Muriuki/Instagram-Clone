@@ -15,6 +15,9 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config, Csv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'ig.apps.IgConfig',
     'crispy_forms',
     'bootstrap4',
+    'cloudinary',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -164,3 +168,8 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+cloudinary.config( 
+  cloud_name = "samm-gallery", 
+  api_key = "848147126193755", 
+  api_secret = "WFNaFUhR3HlSX1WUqdPrFRC13ns" 
+)
