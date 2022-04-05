@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 {% block content %}
 <div class="container">
 
@@ -17,7 +18,7 @@
                 <img class="rounded-circle z-depth-2" alt="100x100"
                     src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" height="200px"  data-holder-rendered="true">
 
-                <h2 class="my-5 mx-5">@{{profle.profile_info}}</h2>
+                <h2 class="my-5 mx-5 font-weight-bold">@{{user.username}}</h2>
             </div>
 
             
@@ -28,5 +29,10 @@
 
     </div>
     <hr class="mb-5" />
+    {%for post in posts %}
+    <div class="card">
+        <img class="card-img-top" src="{{post.image}}" alt="Card image cap">
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

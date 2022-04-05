@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 {%block content%}
 {{ block.super}}
 
@@ -20,15 +21,20 @@
 
                 <form action="{%url 'homepage'%}" method="post" enctype="multipart/form-data">
                     {%csrf_token%}
-                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-heart-o m-2 " aria-hidden="true"></i></button>
-                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-comment-o m-2" aria-hidden="true"></i></button>
-                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i class="fa fa-paper-plane-o m-2" aria-hidden="true"></i></button>
-                    
+                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i
+                            class="fa fa-heart-o m-2 " aria-hidden="true"></i></button>
+                    <a class="ml-3" href="{% url 'homepage' %}">
+                        <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i
+                                class="fa fa-comment-o m-2" aria-hidden="true"></i></button>
+                    </a>
+                    <button class="btn btn-sm btn-link" type="submit" style="font-size: 25px;"><i
+                            class="fa fa-paper-plane-o m-2" aria-hidden="true"></i></button>
+
                 </form>
 
-                
-                
-                
+
+
+
                 <i class="fa fa-bookmark-o" style="margin-left: 70%;" aria-hidden="true"></i>
             </div>
             <h6 class="font-weight-bold">{{post.likes}} likes</h6>
@@ -36,7 +42,7 @@
                 <span class="font-weight-bold">{{post.author}}</span>
                 <span>{{post.caption}}</span>
             </p>
-           
+
         </div>
         <div class="d-flex">
             <div>
@@ -46,19 +52,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="mt-2">
-                {%for comment in comments%}
 
-
-
-                <form action="{%url 'homepage'%}" method="post" enctype="multipart/form-data">
-                    {%csrf_token%}
-                    <input type="hidden" name="idpost" style="position:relative;left:10px" value='{{post.id}}'>
-                    {% bootstrap_form form %}
-                    <input type="submit" class="btn btn-success btn-md d-none" value="Add Comment">
-                </form>
-                {% endfor %}
-            </div>
         </div>
     </div>
     {% endfor %}
