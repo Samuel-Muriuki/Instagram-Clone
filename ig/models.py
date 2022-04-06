@@ -15,7 +15,6 @@ class Profile(models.Model):
 
     def delete_user(self):
         self.delete()
-
     
     @classmethod
     def edit_profile(cls, id, value):
