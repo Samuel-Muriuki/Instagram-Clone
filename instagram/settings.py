@@ -15,7 +15,7 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config, Csv
-import cloudinary
+# import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'cloudinary',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 MIDDLEWARE = [
